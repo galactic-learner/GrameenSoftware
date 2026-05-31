@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrameenSoftware</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;900&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.cdnfonts.com/css/akrobat" rel="stylesheet">
+
+<style>
+:root{
+    --brand:#FE5E41;
+    --bg:#000;
+    --bg2:#141414;
+    --white:#fff;
+    --nh:70px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'akrobat',sans-serif;
+    background:var(--bg);
+    color:var(--white);
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:var(--nh);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    background:rgba(0,0,0,0.96);
+    border-bottom:1px solid rgba(254,94,65,0.15);
+    z-index:1000;
+    backdrop-filter:blur(12px);
+}
+
+.logo{
+    height:34px;
+    width:auto;
+}
+
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:6px;
+}
+
+.nav-links li{
+    position:relative;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:rgba(255,255,255,0.72);
+    font-family:'Barlow Condensed',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:.82rem;
+    font-weight:700;
+    padding:10px 14px;
+    border-radius:4px;
+    transition:.25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:var(--brand);
+    background:rgba(254,94,65,0.08);
+}
+
+/* DROPDOWN */
+
+.dropdown-menu{
+    position:absolute;
+    top:110%;
+    left:0;
+    min-width:180px;
+    background:#181818;
+    border:1px solid rgba(254,94,65,0.14);
+    border-radius:8px;
+    overflow:hidden;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:.25s;
+}
+
+.dropdown:hover .dropdown-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.dropdown-menu a{
+    display:block;
+    padding:14px 18px;
+}
+
+/* HAMBURGER */
+
+.hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:24px;
+    height:2px;
+    background:#fff;
+    border-radius:20px;
+    transition:.3s;
+}
+
+.hamburger.active span:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2){
+    opacity:0;
+}
+
+.hamburger.active span:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+}
+
+/* MOBILE MENU */
+
+.mobile-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    z-index:998;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+}
+
+.mobile-overlay.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.mobile-menu{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:280px;
+    height:100vh;
+    background:#111;
+    z-index:999;
+    padding:100px 24px 40px;
+    transition:.35s ease;
+    border-left:1px solid rgba(254,94,65,0.15);
+}
+
+.mobile-menu.show{
+    right:0;
+}
+
+.mobile-menu ul{
+    list-style:none;
+}
+
+.mobile-menu li{
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.mobile-menu a{
+    display:block;
+    padding:18px 0;
+    text-decoration:none;
+    color:rgba(255,255,255,0.82);
+    font-family:'Barlow Condensed',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-weight:700;
+}
+
+.mobile-sub{
+    padding-left:16px;
+}
+
+.mobile-sub a{
+    font-size:.85rem;
+    color:rgba(255,255,255,0.45);
+}
+
+/* HERO */
+
+#home{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 60px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(circle at top left, rgba(254,94,65,0.16), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(254,94,65,0.08), transparent 35%);
+}
+
+.hero-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(254,94,65,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(254,94,65,0.04) 1px, transparent 1px);
+    background-size:52px 52px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:850px;
+}
+
+.eyebrow{
+    display:inline-block;
+    margin-bottom:24px;
+    padding:6px 16px;
+    border:1px solid rgba(254,94,65,0.18);
+    border-radius:999px;
+    color:var(--brand);
+    font-family:'Barlow Condensed',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    font-size:.72rem;
+    font-weight:700;
+}
+
+h1{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:clamp(3rem,9vw,7rem);
+    line-height:.92;
+    font-weight:900;
+    margin-bottom:24px;
+}
+
+h1 span{
+    color:var(--brand);
+}
+
+.subtext{
+    max-width:620px;
+    margin:auto;
+    line-height:1.8;
+    color:rgba(255,255,255,0.55);
+    font-size:1rem;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:36px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    text-decoration:none;
+    padding:14px 28px;
+    border-radius:4px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:.82rem;
+    font-weight:700;
+    transition:.25s;
+}
+
+.btn-primary{
+    background:var(--brand);
+    color:#fff;
+    border:1px solid var(--brand);
+}
+
+.btn-primary:hover{
+    background:#ff7055;
+    transform:translateY(-2px);
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,0.15);
+    color:#fff;
+}
+
+.btn-secondary:hover{
+    border-color:var(--brand);
+    background:rgba(254,94,65,0.08);
+}
+
+/* SECTION */
+
+section{
+    padding:90px 20px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+}
+
+.label{
+    color:var(--brand);
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    font-size:.72rem;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+h2{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:clamp(2rem,5vw,4rem);
+    line-height:1;
+    margin-bottom:22px;
+}
+
+.text{
+    max-width:650px;
+    color:rgba(255,255,255,0.56);
+    line-height:1.8;
+}
+
+/* PROJECTS */
+
+#projects{
+    background:var(--bg2);
+}
+
+.cards{
+    margin-top:50px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:10px;
+    padding:28px;
+    transition:.25s;
+    text-decoration:none;
+    color:inherit;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(254,94,65,0.3);
+}
+
+.card-tag{
+    color:var(--brand);
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.7rem;
+    margin-bottom:12px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+}
+
+.card-title{
+    font-size:1.7rem;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.card-text{
+    color:rgba(255,255,255,0.5);
+    line-height:1.7;
+    font-size:.92rem;
+}
+
+/* ABOUT */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.visual{
+    background:#111;
+    border:1px solid rgba(254,94,65,0.14);
+    border-radius:12px;
+    padding:24px;
+}
+
+.code{
+    color:rgba(254,94,65,0.7);
+    font-family:monospace;
+    line-height:1.8;
+    font-size:.85rem;
+}
+
+/* CONTACT */
+
+#contact{
+    background:var(--bg2);
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    margin-top:40px;
+}
+
+.form{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.form input,
+.form textarea{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:14px;
+    border-radius:6px;
+    color:#fff;
+    outline:none;
+    font-size:16px;
+}
+
+.form textarea{
+    resize:none;
+    height:120px;
+}
+
+.form input:focus,
+.form textarea:focus{
+    border-color:var(--brand);
+}
+
+.info-item{
+    margin-bottom:26px;
+}
+
+.info-title{
+    color:rgba(255,255,255,0.35);
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:.72rem;
+    margin-bottom:8px;
+    font-family:'Barlow Condensed',sans-serif;
+}
+
+.info-text{
+    color:rgba(255,255,255,0.72);
+}
+
+/* FOOTER */
+
+footer{
+    padding:34px 20px;
+    border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.footer-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.footer-logo{
+    height:26px;
+}
+
+.footer-copy{
+    color:rgba(255,255,255,0.3);
+    font-size:.85rem;
+}
+
+.footer-brand{
+    color:var(--brand);
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .about-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hamburger{
+        display:flex;
+    }
+
+    section{
+        padding:70px 16px;
+    }
+
+    nav{
+        padding:0 16px;
+    }
+}
+
+@media(max-width:480px){
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .btn{
+        width:100%;
+        max-width:280px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+
+    <a href="#home">
+        <img src="logo.png" alt="GrameenSoftware" class="logo">
+    </a>
+
+    <ul class="nav-links">
+
+        <li><a href="#home" class="active">Home</a></li>
+
+        <li class="dropdown">
+            <a href="#projects">Projects</a>
+
+            <div class="dropdown-menu">
+                <a href="Project PE.html">Project PE</a>
+            </div>
+        </li>
+
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+
+    </ul>
+
+    <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+</nav>
+
+<!-- MOBILE -->
+
+<div class="mobile-overlay" id="overlay"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+
+    <ul>
+        <li><a href="#home" class="mobile-link">Home</a></li>
+        <li><a href="#projects" class="mobile-link">Projects</a></li>
+        <li class="mobile-sub"><a href="Project PE.html">→ Project PE</a></li>
+        <li><a href="#about" class="mobile-link">About</a></li>
+        <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+
+</div>
+
+<!-- HERO -->
+
+<section id="home">
+
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+
+        <div class="eyebrow">Software Solutions for the Future</div>
+
+        <h1>
+            Building <span>Digital</span><br>
+            Products That <span>Matter</span>
+        </h1>
+
+        <p class="subtext">
+            GrameenSoftware crafts scalable, purposeful software that bridges communities and drives meaningful change.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">View Our Work</a>
+            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+    <div class="container">
+
+        <div class="label">Our Work</div>
+        <h2>Projects That Define Us</h2>
+
+        <p class="text">
+            Each project is a commitment — built with precision, shipped with purpose, designed to last.
+        </p>
+
+        <div class="cards">
+
+            <a href="Project PE.html" class="card">
+                <div class="card-tag">Flagship · Coming Soon</div>
+                <div class="card-title">Project PE</div>
+                <p class="card-text">
+                    Our most ambitious initiative yet. A groundbreaking platform redefining how people interact with technology.
+                </p>
+            </a>
+
+            <div class="card">
+                <div class="card-tag">Enterprise</div>
+                <div class="card-title">SmartFlow</div>
+                <p class="card-text">
+                    Intelligent workflow automation designed for modern enterprise environments.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-tag">Community</div>
+                <div class="card-title">ConnectGram</div>
+                <p class="card-text">
+                    Connecting rural communities through lightweight and accessible digital communication.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div>
+                <div class="label">Who We Are</div>
+                <h2>Software With Purpose</h2>
+
+                <p class="text">
+                    GrameenSoftware builds thoughtful digital systems focused on reliability, scalability and real-world impact.
+                </p>
+            </div>
+
+            <div class="visual">
+<pre class="code">// GrameenSoftware
+const mission = {
+  build: "purposeful",
+  ship: "reliably",
+  impact: "people"
+};</pre>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+    <div class="container">
+
+        <div class="label">Contact</div>
+        <h2>Let's Build Something Together</h2>
+
+        <div class="contact-grid">
+
+            <form class="form" id="contactForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <textarea placeholder="Tell us about your project..." required></textarea>
+                <button class="btn btn-primary" type="submit">Send Message</button>
+            </form>
+
+            <div>
+
+                <div class="info-item">
+                    <div class="info-title">Location</div>
+                    <div class="info-text">Chittagong, Bangladesh</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-title">Email</div>
+                    <div class="info-text">hello@grameensoftware.com</div>
+                    <!-- <div class="info-text">hello@grameensoftware.com</div> -->
+                </div>
+
+                <div class="info-item">
+                    <div class="info-title">Website</div>
+                    <div class="info-text">grameensoftware.com</div>
+                    <!-- <div class="info-text">grameensoftware.com</div> -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <img src="logo.png" alt="GrameenSoftware" class="footer-logo">
+
+        <div class="footer-copy">
+            © 2026 GrameenSoftware. All rights reserved.
+        </div>
+
+        <div class="footer-brand">
+            Built with purpose.
+        </div>
+
+    </div>
+
+</footer>
+
+<script>
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const overlay = document.getElementById('overlay');
+const mobileLinks = document.querySelectorAll('.mobile-link');
+
+function openMenu(){
+    hamburger.classList.add('active');
+    mobileMenu.classList.add('show');
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMenu(){
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('show');
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', () => {
+
+    if(mobileMenu.classList.contains('show')){
+        closeMenu();
+    }else{
+        openMenu();
+    }
+
+});
+
+overlay.addEventListener('click', closeMenu);
+
+mobileLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+});
+
+// CONTACT FORM
+
+const contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('submit', function(e){
+
+    e.preventDefault();
+
+    const button = contactForm.querySelector('button');
+
+    button.innerText = 'Sent ✓';
+    button.style.background = '#2ecc71';
+
+    setTimeout(() => {
+        button.innerText = 'Send Message';
+        button.style.background = '';
+        contactForm.reset();
+    }, 2500);
+
+});
+
+// ACTIVE NAVIGATION
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+
+    let current = '';
+
+    sections.forEach(section => {
+
+        const top = section.offsetTop - 120;
+
+        if(window.scrollY >= top){
+            current = section.getAttribute('id');
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove('active');
+
+        if(link.getAttribute('href') === '#' + current){
+            link.classList.add('active');
+        }
+
+    });
+
+}, { passive:true });
+
+</script>
+
+</body>
+</html>
+
